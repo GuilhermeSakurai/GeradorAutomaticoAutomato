@@ -28,6 +28,18 @@ public class Randomico {
 		
 		QuantidadeEstados = Integer.parseInt(JOptionPane.showInputDialog("Quantidade de Estados "));
 		QuantidadeTransicao = Integer.parseInt(JOptionPane.showInputDialog("Quantidade de Transicao "));
+				
+				if(QuantidadeEstados>QuantidadeTransicao) {
+					JOptionPane.showMessageDialog(null,"Quantidade de Transição tem que ser maior que a Quantidade de Estados!"
+							,"Erro",JOptionPane.ERROR_MESSAGE);
+					
+					QuantidadeEstados = Integer.parseInt(JOptionPane.showInputDialog("Quantidade de Estados "));
+					QuantidadeTransicao = Integer.parseInt(JOptionPane.showInputDialog("Quantidade de Transicao "));
+				
+				}
+				
+				
+		
 		selfloop =  Boolean.parseBoolean(JOptionPane.showInputDialog("Selfloop? true/false:"));
 		deterministico =  Boolean.parseBoolean(JOptionPane.showInputDialog("Deterministico? true/false:"));
 		QuantidadeTeste = Integer.parseInt(JOptionPane.showInputDialog("Quantidade de Testes"));
@@ -48,17 +60,18 @@ public class Randomico {
 		 labels = JOptionPane.showInputDialog("Rotulos das Transicoes separados por virgulas");
 		 //System.out.println(labels);
 		 String lista_rotulos[] = labels.split(",");
-		
+		 
+		 long startTime = System.currentTimeMillis();
 		 for(int i=0;i<QuantidadeTeste;i++) {
 			gravarArq.println(i + ":");
 			gerador(QuantidadeEstados,QuantidadeTransicao,selfloop,deterministico,lista_rotulos,gravarArq);
 			gravarArq.println("-------------------------");
 			gravarArq.println("-------------------------");
 		}
-		
-		
+		 long endTime = System.currentTimeMillis();
+		 long durationInNano = (endTime - startTime);
 		 JOptionPane.showMessageDialog(null,"Diretório:"+ myfile.getPath()+ "\n" + 
-					"Arquivo Gerado com Sucesso!"
+					"Arquivo Gerado com Sucesso!"+ "\n" + "Tempo de execução :" + durationInNano +"ms"
 					,"Resultado",JOptionPane.INFORMATION_MESSAGE);
 		 
 		 
